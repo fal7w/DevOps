@@ -1,0 +1,25 @@
+name: Issue Notification
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: mail.fintechsys.net
+          server_port: 465
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "Issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
+          body: |
+            A new issue has been ${{ github.event.action }} in the repository.
+            Issue Title: ${{ github.event.issue.title }}
+            Issue Body: ${{ github.event.issue.body }}
+            URL: ${{ github.event.issue.html_url }}
+          to: recipient@example.com
+          from: sender@example.com
