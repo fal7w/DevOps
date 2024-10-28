@@ -19,11 +19,11 @@ jobs:
         
     - name: build image
       run: |
-        git clone  --branch ${{ inputs.branch_name }} https://${{ secrets.ORG_TOKEN }}@github.com/fintechsys/web-app.git
-        cd web-app
-        docker build -t web-app:latest .
-         
+        git clone  --branch ${{ inputs.branch_name }} https://${{ secrets.ORG_TOKEN }}@github.com/fintechsys/fineract.git
+        cd fineract
+        ./gradlew --no-daemon --console=plain :fineract-provider:jibDockerBuild -x test -x cucumber
+
     - name: push image to harbor
       run: |
-        docker tag web-app:latest harbor.fintechsys.net/core-bank/web-app/${{ inputs.branch_name }}:latest
-        docker push harbor.fintechsys.net/core-bank/web-app/${{ inputs.branch_name }}:latest
+         docker tag fineract:latest harbor.fintechsys.net/core-bank/fineract/${{ inputs.branch_name }}:latest
+         docker push harbor.fintechsys.net/core-bank/fineract/${{ inputs.branch_name }}:latest
