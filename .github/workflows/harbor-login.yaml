@@ -2,6 +2,10 @@ name: Build And Push Image On Harbor
 
 on:
   workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'branch name'
+        required: true
 
 jobs:
   build:
