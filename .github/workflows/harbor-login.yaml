@@ -12,3 +12,14 @@ jobs:
         registry: harbor.fintechsys.net
         username: ${{ secrets.HARBOR_USERNAME  }}
         password: ${{ secrets.HARBOR_PASSWORD }}
+        
+    - name: build image
+      run: |
+        git clone  --branch ${{ inputs.branch_name }} https://${{ secrets.ORG_TOKEN }}@github.com/fintechsys/web-app.git
+        cd web-app
+        docker build -t web-app:latest .
+         
+    - name: push image to harbor
+      run: |
+        docker tag web-app:latest harbor.fintechsys.net/core-bank/web-app/${{ inputs.branch_name }}:latest
+        docker push harbor.fintechsys.net/core-bank/web-app/${{ inputs.branch_name }}:latest
