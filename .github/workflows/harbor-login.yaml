@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: dev2_runner_local
     steps:
     - uses: docker/login-action@v1
       with:
