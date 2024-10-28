@@ -19,7 +19,7 @@ jobs:
         
     - name: build image
       run: |
-        git clone  --branch ${{ inputs.branch_name }} https://${{ secrets.ORG_TOKEN }}@github.com/fintechsys/fineract.git
+        git clone  --branch ${{ inputs.branch_name }} https://${{ secrets.ORG2_TOKEN }}@github.com/fintechsys/fineract.git
         cd fineract
         ./gradlew --no-daemon --console=plain :fineract-provider:jibDockerBuild -x test -x cucumber
 
